@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<story>
+
+	<page type="menu" name="start">
+		<button>
+			<message>Start New Game</message>
+			<location>1</location>
+			<transition>basegameintro0.xml</transition>
+		</button>
+		<button>
+			<message>Continue</message>
+			<location>2</location>
+			<transition></transition>
+		</button>
+		<button>
+			<message>Settings</message>
+			<location>3</location>
+			<transition></transition>
+		</button>
+		<button>
+			<message>Exit Game</message>
+			<location>4</location>
+			<transition>quitgame</transition>
+		</button>
+		<image></image>
+	</page>
+
+</story>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<story>
+
+	<page type="text" name="start">
+		<paragraph number="0">
+		The brilliant red rainbow of a tunnel ended abruptly.  Despite hurtling though the space at what you thought was startling speed, the opposite portal approached at a brisk walking pace.  It too was suggestively labial, and the walls of the passage seemed to curve in to meet it.  Melody looks over her shoulder at you and, satisfied that you're still with her, pulls you through the portal and out of the gash in spacetime.
+		</paragraph>
+		
+		<button>
+			<message>Continue</message>
+			<location>1</location>
+			<transition>introduction1</transition>
+		</button>
+		<image></image>
+	</page>
+	
+	
+	<page type="text" name="introduction1">
+		<paragraph number="0">
+		Your vision whites out for a second, and you regain yourself in a dim and cavernous room.  The first thing you can hear are panting moans of pleasure and pain, but largely pain.  The room is made of dark stone and has an oblong shape.  You stand in a large sunken dias, with a few rows of benches sloping upwards to meet a shallow domed ceiling, which arches a few meters above you and reverberates the labored gasping.  The only lights are candles organized upon the dias.
+		</paragraph>
+		<paragraph number="1">
+		"*Holy shit* Mel..." gasps a high voice, "could you have... *fucking* taken any longer?!"  You turn around to see a small human figure laying on the ground behind you, legs splayed, knees in the air, with womanhood on full display.
+		</paragraph>
+		<paragraph number="2">
+		"Oh, Felicity, come on.  I knew you could do it!~" says Melody dismissively, walking over to the suppine figure and bending over to address her.
+		</paragraph>
+		<paragraph number="3">
+		"Fuck you... greedy bitch..."
+		</paragraph>
+		
+		<button>
+			<message>Continue</message>
+			<location>1</location>
+			<transition>introduction2</transition>
+		</button>
+		<button>
+			<message>Back</message>
+			<location>2</location>
+			<transition>start</transition>
+		</button>
+		<image></image>
+	</page>
+	
+	
+		<page type="text" name="introduction2">
+		<paragraph number="0">
+		Suddenly, lights come on from behind the gallery and the dome now is plainly lit.  Walking around the candles to the center of the dias, you look down to find a petite woman spread eagle in the middle of a huge ritual circle.  She is short and slim, with only the noticable curves of womanhood and tight A-cup breasts.  You could squint and mistake her for a teenager from a distance, but a sophomoric face slightly fuller figure reveal her maturity.
+		</paragraph>
+		<paragraph number="1">
+		"You're fi~ine, Felicity.  You've done this before, it's not that bad" assauges Melody, still bent over.  You look up and catch a face full of Melody's melons, hanging dangerously in her leotard.
+		</paragraph>
+		<paragraph number="2">
+		"Yeah... I've carried to... other planes..." pants Felicity, "not to the *fucking* Magic Sink... for the *half-fuckin'-hour*... it took you to bait *one mortal.*"
+		</paragraph>
+		<paragraph number="3">
+		"It was like, a minute, Fellie."
+		</paragraph>
+		<paragraph number="4">
+		"It was almost *10 minutes* Melody!  My whole damn vag is chafed and raw from that shit!  It was like giving birth... into a vacuum cleaner!"
+		</paragraph>
+		<paragraph number="5">
+		"*Thank you, Fellie~!" Melody cooed as she bends even lower and pouts sympathetically.  She stands back up and turns, walking off the dias and down the large walkway cutting through the rising benches and out of the room.
+		</paragraph>
+		<paragraph number="6">
+		"Go register your toy," Felicity spat, still lying down, "and tell the *fucking* pixies to bring me water!"
+		</paragraph>
+		
+		<button>
+			<message>Continue</message>
+			<location>1</location>
+			<transition>quitgame</transition>
+		</button>
+		<button>
+			<message>Back</message>
+			<location>2</location>
+			<transition>introduction1</transition>
+		</button>
+		<image></image>
+	</page>
+	
+	
+	<point name="name">
+		<variable>PC Name</variable>
+	</point>
+	
+	
+	<point name="plural-gender">
+		<variable>PC Nominative Gender</variable>
+		<option name="Female">succubi</option>
+		<option name="Male">incubi</option>
+		<option name="Neutral">acubi</option>
+	</point>
+	
+</story>
+
+

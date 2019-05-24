@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+	<window name="Small">
+		<active>False</active>
+		<description>Small window size.</description>
+		<width>800</width>
+		<height>600</height>
+	</window>
+	<window name="Standard">
+		<active>False</active>
+		<description>Standard window size.</description>
+		<width>1000</width>
+		<height>700</height>
+	</window>
+	<window name="Large">
+		<active>True</active>
+		<description>Widescreen window size.</description>
+		<width>1200</width>
+		<height>800</height>
+	</window>
+	<window name="High Resolution">
+		<active>False</active>
+		<description>High resolution window size.</description>
+		<width>2000</width>
+		<height>1400</height>
+	</window>
+	<window name="HighRez Large">
+		<active>False</active>
+		<description>High resolution widescreen window size.</description>
+		<width>2400</width>
+		<height>1600</height>
+	</window>
+	
+	<font variant="regular">CrimsonText-Regular.ttf</font>
+	<font variant="italic">CrimsonText-Italic.ttf</font>
+	<font variant="bold">CrimsonText-Bold.ttf</font>
+	
+	<story name="Start Menu">
+		<filename>startmenu.xml</filename>
+	</story>
+
+</data>

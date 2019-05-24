@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<story>
+
+	<page type="text" name="start">
+		<paragraph number="0">
+		You return home again tired.  It's the fifth time this week you wound up exhausted after commuting back from work, and Friday night feels nice.  Not that you're doing anything besides staying at home, but that beats a less-than-enjoyable job and non-existant career.  Shoes come off, shirt comes off, pants come off, and underwear follows suit.  With the garb of your employment in a crumpled but localized heap, you slump down on the couch and stare at your slightly-too-small TV.  It's not on, and you are unsure if you will muster the strength to find the remote.  The silence is fine for now, since the feeling of being in your own body has temporarily overwhelmed you.
+		</paragraph>
+		<paragraph number="1">
+		You have no plans this Friday, the same as last Friday and the Friday before that.  You haven't gone out clubbing since college, and the last place you've been to was the blacked-out basement of a fraternity house some frat bro convinced you to party in mid-way through senior year.  You've been out of school for more than a year, and your prospects of going out are on life-support.  You were never terribly outgoing, but you did like hanging out with your college buddies and going to shows on the weekend.  Now, you left the friends you made at college there, and moving into a tiny downtown apartment has left you with a shitty job and a shoestring budget.  You definitely haven't have the time or energy to look for a partner.  You wonder what's new in the pornosphere...
+		</paragraph>
+		
+		<button>
+			<message>Continue</message>
+			<location>1</location>
+			<transition>introduction1</transition>
+		</button>
+		<image></image>
+	</page>
+	
+	
+	<page type="text" name="introduction1">
+		<paragraph number="0">
+		While you were zoning out, a white light begins to glow from the direction of your TV.  In front of you a white ball made of infinite, tangled glowing strings appears.  You rub your eyes and shift forward, sitting up.  It grows hastily into a halo, then expands, folding into a tall teardrop shape and taking up the entirely of your tiny living room. Within seconds it's the size of a doorframe, and notably pudendic.  Out of it steps the single most beautiful woman that you have ever seen.
+		</paragraph>
+		<paragraph number="1">
+		{vi}"Hello, investment..."{/}
+		</paragraph>
+		<paragraph number="2">
+		A voice like velvet and honey emanates from the inhumanly gorgeous being in front of you, but her words seem to come from everywhere at once.  You are instantly made aware of her body.  So intense a presence it is that you cannot recall even artistic depicitons of womanhood more voluptuous and aluring.  However, you cannot ogle her body because of how utterly transfixed you are on her presence.  She exhudes a lascivious aura while being utterly collected and genuinely charismatic.  
+		</paragraph>
+		
+		<button>
+			<message>Continue</message>
+			<location>1</location>
+			<transition>introduction2</transition>
+		</button>
+		<button>
+			<message>Back</message>
+			<location>2</location>
+			<transition>start</transition>
+		</button>
+		<image></image>
+	</page>
+	
+	
+	<page type="text" name="introduction2">
+		<paragraph number="0">
+		"...I don't have an enourmous amount of time, so I'll be quick.  I'm going to be your new boss, and you're going every thing I order you to.  Which won't be very much, don't worry!" she chuckles, with a smile you can't place.  "In exchange, I'm going to whisk you away to an entirely different plane of existence, far away from this magic-sucking *hellhole* you somehow tollerate calling home.  There, you can finally rise to meet your destiny as a being with a modicum of magical attunement."
+		</paragraph>
+		<paragraph number="1">
+		She catches the brief, quizical look on your face as you parse what she just told you.  "Oh?  Of course you wouldn't know, yourself.  This realm drains everything of magic, and you-" she touches your nose and you feel complete devotion, "-were unfortunate enough to be born here, instead of anywhere else in the Nine Realms!  Congratulations.  You're a *wizard!* ".
+		</paragraph>
+		<paragraph number="2">
+		All you can do is stare directly into her eyes, despite her outrageous chest and spectacular neckline being ever-so-near to you.  Between you desperately trying to make sense of the words this woman is saying, and your brain being utterly transfixed on the deity in front of it, you have no willpower left to speak.
+		</paragraph>
+		
+		<button>
+			<message>Continue</message>
+			<location>1</location>
+			<transition>introduction3</transition>
+		</button>
+		<button>
+			<message>Back</message>
+			<location>2</location>
+			<transition>introduction1</transition>
+		</button>
+		<image></image>
+	</page>
+	
+	
+	<page type="text" name="introduction3">
+		<paragraph number="0">
+		"Listen, I'm flattered, but we're running short on time."  You suddenly realize that she can taste your feelings, but also realize that sounds insane.
+		</paragraph>
+		<paragraph number="1">
+		"I'm going to be very nice today, and tell things exactly how they are.  You are a very good catch for me.  You're mortal, you're magic, you're totally untouched-" she gives a quick lick of her lips with a too-sharp tongue, "and no one else has claimed you yet.  Nobody comes here from any of the other eight Realms, so nobody is looking for sweet deals like you!"  She brings up a hand to quickly caress your right cheek, which causes your entire face to blush so hard it burns.  "In case you couldn't already tell, I'm a succubus.  And I'm looking to expand my business with a little *diversification*.  You see, mortals make simply the *best* thralls.  I'm in the market, and you're a steal sitting on the back-shelf!"  She speaks so quickly that it shocks you that she can giggle at her own jokes.
+		</paragraph>
+		<paragraph number="2">
+		"When, not if, you work for me, all you will need to do is gather a set amount of orgone energy per sidderal period.  How exactly you go about gathering that energy is up to you!"  She winks at you precisely as you remember what 'orgone' means.  "I take that energy and pool it with the energy I've collected myself, consume some of it, save most of it, and give the rest to my mo-, err, boss.  In exchange for being at the bottom of the pyramid, I'll let you run around my home Realm all you like.  You'll be free to make something of your magical talent in a wonderous world that will blow your little mind! And, unlike other *basic* succubi, I will *promise* not to subsume your will!~"
+		</paragraph>
+		<paragraph number="3">
+		She's unrolling a piece of parchment now, though you have no idea where she got it from.  "It's very simple, really.  Your run-of-the-mill demonic contract.  I own you forever, I give you a few magic powers, you give me your orgone dues, and you can come with me to fuck your way through a world of magic!  Sign here in blood, and the paperwork's done!  Don't think too long, we've got to go *now!*"
+		</paragraph>
+		<paragraph number="4">
+		Your brain has just about caught up.  You are getting used to her unearthly charm, or her influence is getting weaker.  All the same you struggle to do the calculus of her offer in your head.  Leave your life behind?  Your family, and your friends?  Who will pay your bills?  Who will pay your loans?
+		</paragraph>
+		
+		<button>
+			<message>Fuck it.</message>
+			<location>1</location>
+			<transition>introduction4</transition>
+		</button>
+		<button>
+			<message>I... can't...</message>
+			<location>2</location>
+			<transition>introduction5</transition>
+		</button>
+		<button>
+			<message>Back</message>
+			<location>3</location>
+			<transition>introduction2</transition>
+		</button>
+	</page>
+	
+	
+	<page type="text" name="introduction4">
+		<paragraph number="0">
+		As you speak, you become aware that you are holding a fountain pen.  It is out of ink.
+		</paragraph>
+		<paragraph number="1">
+		The succubus just smiles.
+		</paragraph>
+		<paragraph number="2">
+		You already know what to do.  Bracing yourself, you jab the nib of the pen into your off-arm.  You wince as you hold it in, but the wound doesn't bleed until you pull the pen out.  Putting the pen to the parchment, you write your name...
+		</paragraph>
+		
+		<input>
+			<variable>PC Name</variable>
+			<transition>introduction6</transition>
+		</input>
+	</page>
+	
+	
+	<page type="text" name="introduction5">
+		<paragraph number="0">
+		"That's not an option."  As woman frowns, the world itself seems less joyful and your mind scrambles desperately to find some way to cheer her up.  "I *need* you to sign this, and we need to *leave*."
+		</paragraph>
+		<paragraph number="1">
+		A fountain pen snaps into existence in her left hand, and she lovingly jabs your arm with its nib.  Her smile has too many emotions for you to read.  She wraps your hand around the pen.
+		</paragraph>
+		<paragraph number="2">
+		"*Sign.*"
+		</paragraph>
+		<paragraph number="3">
+		You lose the ability to think.
+		</paragraph>
+		
+		<button>
+			<message>Sign.</message>
+			<location>1</location>
+			<transition>introduction6</transition>
+		</button>
+	</page>
+	
+	
+	<page type="text" name="introduction6">
+		<paragraph number="0">
+		" [name] ?"  The succubus stands back up and looks at your signature quizically, for a split second.  "Good, it doesn't matter.  *Let's go, now.*"
+		</paragraph>
+		<paragraph number="1">
+		She grabs your wrist with authority.  You are utterly entranced.  She pulls you effortlessly as you follow with complete devotion.  You've forgotten your cothes, your phone, and everything else you own.  But they don't matter anymore.  Your new boss steps into the concerningly pulsating portal without looking back at you, but her grip tightens to ensure you can't stop short.   Not that you would want to, now.
+		</paragraph>
+		<paragraph number="2">
+		As your face slides past the threshold of reddening light, you are greeted to an infinite vista of rolling energy.  You feel the rest of your body being sucked through the portal, and you lean forward into the weightlessness of the expanse within.  You can feel the portal sliding shut as you cross it, and it zips shut just as your trailing toes pass through the breach.  Now you are floating gently at lightspeed, secured to nothing but a ravishingly beautiful succubus.
+		</paragraph>
+		<paragraph number="3">
+		"For a moment I was scared I would have to *drag* you through.  Lucky for me, you already know the first rule of our little partnership," she says as she looks over her shoulder at you. "Do what I say."  You think that sounds like a loaded rule.  Strangely, you realize that you can now think about something *other* than the woman holding your arm.
+		</paragraph>
+		<paragraph number="4">
+		After only a brief moment floating eternally in an infinite nebula, you realize that you are both speeding toward a glowing point in the distance.  In an split second the point hurtles forward and reveals itself to be another portal, smaller but identically vulvic.  The succubus bends over to lean through it.  "Follow me," she says, and together you squeeze though the glowing threshold once again.
+		</paragraph>
+		
+		<button>
+			<message>Exit the Betweenspace</message>
+			<location>1</location>
+			<transition>basegameintro1.xml</transition>
+		</button>
+	</page>
+	
+	
+	<point name="name">
+		<variable>PC Name</variable>
+	</point>
+	
+	
+	<point name="plural-gender">
+		<variable>PC Nominative Gender</variable>
+		<option name="Female">succubi</option>
+		<option name="Male">incubi</option>
+		<option name="Neutral">acubi</option>
+	</point>
+	
+</story>

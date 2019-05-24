@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+	<stat name="Strength" display="yes">
+	</stat>
+	<stat name="Endurance" display="yes">
+	</stat>
+	<stat name="Quickness" display="yes">
+	</stat>
+	<stat name="Insight" display="yes">
+	</stat>
+	<stat name="Libido" display="yes">
+	</stat>
+	<stat name="Sexiness" display="yes">
+	</stat>
+	<stat name="Sensitivity" display="yes">
+	</stat>
+
+</data>
