@@ -4,7 +4,7 @@ pyInstaller --onefile ^
 --clean ^
 --name %name% ^
 --icon=ole.ico ^
---add-data="README.txt;." ^
+--add-data="README.md;." ^
 --add-data="Settings.XML;." ^
 --windowed ^
 __main__.py
