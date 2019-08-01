@@ -13,9 +13,9 @@
 			<transition></transition>
 		</button>
 		<button>
-			<message>Settings</message>
+			<message>Save</message>
 			<location>3</location>
-			<transition></transition>
+			<transition>savegame</transition>
 		</button>
 		<button>
 			<message>Exit Game</message>

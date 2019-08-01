@@ -115,6 +115,12 @@ class MenuPage(Page):
 																						font=pygame.font.Font(Globals.FONT_PATH_REGULAR, Globals.FONT_SIZE),
 																						event=pygame.event.Event(QUIT)
 																						))
+			elif b.find('transition').text == 'savegame':
+				self.action_buttons.append(UIElements.OLEButton(self._BUTTON_DIRECTORY[b.find('location').text],
+																						b.find('message').text,
+																						font=pygame.font.Font(Globals.FONT_PATH_REGULAR, Globals.FONT_SIZE),
+																						event=pygame.event.Event(Globals.SAVE)
+																						))
 			else:
 				self.action_buttons.append(UIElements.OLEButton(self._BUTTON_DIRECTORY[b.find('location').text],
 																						b.find('message').text,
@@ -510,24 +516,37 @@ class Character:
 		self.stats = {}
 		
 		self.readSave(savePath)
-		self.loadStats(globalStats)
+		#self.loadStats(globalStats)
 		
 	def readSave(self, savePath):
-		"""Read character stats into the stats dictionary"""
+		"""Read character stats from file into the stats dictionary"""
 		root = ET.parse(savePath).getroot()
 		character = root.find('character')
 		self.name = character.attrib['name']
 		for stat in character.findall('stat'):
-			self.stats[stat.attrib['name']] = stat.text
+			self.stats[stat.attrib['name']] = stat.text.replace('\n','').replace('\t','')
 	
 	def loadStats(self, globalStats):
 		"""Create the list of stats by cross-referencing the save file and global stats"""
+		"""TODO: This function bugs out the values in self.stats, and does nothing due to STATS_DICT being unimplemented"""
 		temp = {}
 		for kg, vg in globalStats.items():
 			for k, v in self.stats.items():
 				if kg == k:
 					temp[kg] = vg
 		self.stats = temp
+
+	def _addStat(self, newStatName, newStatValue, override=False):
+		"""Append a new stat to the stats dict"""
+		if newStatName in self.stats:
+			if override == False:
+				return False
+			else:
+				self.stats[newStatName] = str(newStatValue)
+				return True
+		else:
+			self.stats[newStatName] = str(newStatValue)
+			return True
 	
 	def _expose(self, exposedStats):
 		"""Add all data from the character into the given dictionary exposedStats"""
@@ -536,7 +555,28 @@ class Character:
 		# From the stats dictionary
 		for s, v in self.stats.items():
 			exposedStats[s] = v
+	
+	def _writeSave(self, saveFilePath):
+		"""Write or overwrite the character stats into the save directory"""
+		saveTree = ET.parse(saveFilePath)
+		root = saveTree.getroot()
+		character = root.find('character')
+		character.attrib['name'] = self.name
+		print(self.stats)
 		
+		for stat, value in self.stats.items():
+			print(stat, ":", value)
+			statExists = False
+			for oldStat in character.findall('stat'):
+				if oldStat.attrib['name'] == stat:
+					statExists = True
+					oldStat.text = value
+			if statExists == False:
+				newStat = character.makeelement('stat', {'name': stat})
+				newStat.text = value
+				character.append(newStat)
+
+		saveTree.write(saveFilePath)
 	
 		"""
 		self.hp

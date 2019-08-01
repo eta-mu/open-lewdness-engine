@@ -9,10 +9,12 @@ def init():
 	SCROLLEVENT = pygame.USEREVENT + 1
 	global NEWPAGE
 	NEWPAGE = pygame.USEREVENT + 2
+	global SAVE
+	SAVE = pygame.USEREVENT + 3
 	
 	# Global Colors
 	global BLACK
-	BLACK = (0,0,0)
+	BLACK = (0, 0, 0)
 	global DARKGRAY
 	DARKGRAY = (64, 64, 64)
 	global GRAY
@@ -20,11 +22,11 @@ def init():
 	global LIGHTGRAY
 	LIGHTGRAY = (212, 208, 200)
 	global WHITE
-	WHITE = (255,255,255)
+	WHITE = (255, 255, 255)
 	global RED
-	RED = (200,0,0)
+	RED = (200, 0, 0)
 	global BRIGHTRED
-	BRIGHTRED = (255,0,0)
+	BRIGHTRED = (255, 0, 0)
 	global LIGHTRED
 	LIGHTRED = (225, 25, 25)
 	global PALERED
@@ -34,21 +36,21 @@ def init():
 	global DARKRED
 	DARKRED = (153, 0, 0)
 	global ORANGE
-	ORANGE = (200,100,0)
+	ORANGE = (200, 100, 0)
 	global YELLOW
-	YELLOW = (200,200,0)
+	YELLOW = (200, 200, 0)
 	global GREEN
-	GREEN = (0,200,0)
+	GREEN = (0, 200, 0)
 	global BRIGHTGREEN
-	BRIGHTGREEN = (0,255,0)
+	BRIGHTGREEN = (0, 255, 0)
 	global BLUE
-	BLUE = (0,0,200)
+	BLUE = (0, 0, 200)
 	global INDIGO
-	INDIGO = (39,0,51)
+	INDIGO = (39, 0, 51)
 	global VIOLET
-	VIOLET = (139,0,255)
+	VIOLET = (139, 0, 255)
 	global BROWN
-	BROWN = 	(210,105,30)
+	BROWN = (210, 105, 30)
 
 	# Global Variables
 	global FONT_PATH
@@ -71,7 +73,7 @@ def init():
 	STATS_PATH = 'Stats'
 	global SAVES_PATH
 	SAVES_PATH = 'Saves'
-	global STORY_PATH 
+	global STORY_PATH
 	STORY_PATH = 'Stories'
 	global DIRECTORY
 	DIRECTORY = os.path.dirname(__file__)
@@ -81,3 +83,4 @@ def init():
 	# All variables exposed to the Story.  Cannot contain the key "name"
 	global EXPOSED_VARIABLES
 	EXPOSED_VARIABLES = {}
+	global PLAYER_CHARACTER
