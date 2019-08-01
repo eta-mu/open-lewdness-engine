@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import Globals
 import UIElements
 
@@ -520,7 +520,7 @@ class Character:
 		
 	def readSave(self, savePath):
 		"""Read character stats from file into the stats dictionary"""
-		root = ET.parse(savePath).getroot()
+		root = ET.parse(savePath, Globals.PARSER).getroot()
 		character = root.find('character')
 		self.name = character.attrib['name']
 		for stat in character.findall('stat'):
@@ -558,7 +558,7 @@ class Character:
 	
 	def _writeSave(self, saveFilePath):
 		"""Write or overwrite the character stats into the save directory"""
-		saveTree = ET.parse(saveFilePath)
+		saveTree = ET.parse(saveFilePath, Globals.PARSER)
 		root = saveTree.getroot()
 		character = root.find('character')
 		character.attrib['name'] = self.name
@@ -576,7 +576,7 @@ class Character:
 				newStat.text = value
 				character.append(newStat)
 
-		saveTree.write(saveFilePath)
+		saveTree.write(saveFilePath, pretty_print=True)
 	
 		"""
 		self.hp

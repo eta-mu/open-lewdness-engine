@@ -3,7 +3,7 @@ import sys
 import os
 import time
 import random
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import Globals
 Globals.init()
 from UIElements import *
@@ -21,7 +21,6 @@ class App:
 		
 		self._story = '' # Root node of the story xml tree
 		self._page = '' # Page currently being displayed
-		self.player_character = '' # Player's character object
 	
 	
 	def on_init(self):
@@ -32,10 +31,8 @@ class App:
 		# Read in the global stats
 		self.readStats()
 
-		# Read in player character stats and expose variables
-		self.player_character = Character('Saves/savedata.xml', Globals.STATS_DICT)
-		self.player_character._expose(Globals.EXPOSED_VARIABLES)
-		print(Globals.EXPOSED_VARIABLES)
+		# Instantiate the player character from the save file
+		Globals.PLAYER_CHARACTER = Character(os.path.join(Globals.SAVES_PATH, 'savedata.xml'), Globals.STATS_DICT)
 		
 		# Initialize game components
 		pygame.init()
@@ -66,6 +63,13 @@ class App:
 				self.turnPage(event.name, self.display_width, self.display_height)
 			else:
 				self.readStory(event.name, self.display_width, self.display_height)
+		elif event.type == Globals.SAVE:
+			#TEST\/
+			Globals.PLAYER_CHARACTER._addStat('NEWSTAT', '9999')
+			Globals.PLAYER_CHARACTER._addStat('Strength', '10', override=True)
+			Globals.PLAYER_CHARACTER._addStat('TWOSTAT', 8888)
+			#TEST^
+			self.saveGame(os.path.join(Globals.SAVES_PATH, 'savedata.xml'))
 		else:
 		#if event.type in (pygame.MOUSEMOTION, pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, SCROLLEVENT):
 			self._page.handleEvent(event)
@@ -124,7 +128,7 @@ class App:
 	def readStory(self, storyName, gameWigth, gameHeight):
 		"""Function for changing to (and displaying) a different Story file."""
 		try:
-			self._story = ET.parse(os.path.join(Globals.STORY_PATH, storyName))
+			self._story = ET.parse(os.path.join(Globals.STORY_PATH, storyName), Globals.PARSER)
 		except IOError as err:
 			print("IOError: Cannot find or open {0}!  Error: {1}".format(storyName, err))
 			
@@ -135,7 +139,7 @@ class App:
 		"""Read in Settings.XML during startup."""
 		# Reads in the settings file
 		try:
-			tree = ET.parse(Globals.SETTINGS_PATH)
+			tree = ET.parse(Globals.SETTINGS_PATH, Globals.PARSER)
 		except IOError as err:
 			print("IOError: Cannot find or open Settings.XML!  Error: {0}".format(err))
 			
@@ -160,7 +164,7 @@ class App:
 		# Set up the story XML from the file indicated by Settings.XML
 		for story in root.findall('story'):
 			try:
-				self._story = ET.parse(os.path.join(Globals.STORY_PATH, story.find('filename').text))
+				self._story = ET.parse(os.path.join(Globals.STORY_PATH, story.find('filename').text), Globals.PARSER)
 			except IOError as err:
 				print("IOError: Cannot find or open {0}!  Error: {1}".format(storyName, err))
 	
@@ -178,7 +182,7 @@ class App:
 		# For each file found, read in the stats
 		for statblock in files:
 			try:
-				tree = ET.parse(os.path.join(Globals.STATS_PATH, statblock))
+				tree = ET.parse(os.path.join(Globals.STATS_PATH, statblock), Globals.PARSER)
 			except IOError as err:
 				print("File {0} was found, but is not parseable".format(statblock))
 			
@@ -192,8 +196,12 @@ class App:
 						Globals.STATS_DICT[stat.attrib['name']] = [0, False]
 	
 
-	def readSaves(self, path):
-		"""Read all XML stats lists in from the Stats folder, and put them in the stats dict."""
+	def saveGame(self, filePath):
+		"""Write one XML save file, containing the player character data and the larger
+		game state, into Saves folder."""
+		print('Saving...')
+		Globals.PLAYER_CHARACTER._writeSave(filePath)
+		print('...saved!')
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import pygame
 import sys
 import os
+import lxml.etree
 
 
 def init():
@@ -11,6 +12,10 @@ def init():
 	NEWPAGE = pygame.USEREVENT + 2
 	global SAVE
 	SAVE = pygame.USEREVENT + 3
+
+	# XML Parser
+	global PARSER
+	PARSER = lxml.etree.XMLParser(remove_blank_text=True)
 	
 	# Global Colors
 	global BLACK
