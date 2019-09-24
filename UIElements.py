@@ -1475,3 +1475,276 @@ class OLEInputBox(object):
 	fgcolor = property(_propGetVisible, _propSetVisible)
 	bgcolor = property(_propGetBgColor, _propSetBgColor)
 	font = property(_propGetFont, _propSetFont)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - -
+	
+class OLECard(object):
+	"""
+	The class for an action card.
+	TODO: Expanding this class to include standardized card formatting and actual game data.
+
+	Args:
+		rect:		The pygame rectangle which defines the physical space the card takes up on the game screen.
+		card:		A CardData object containing the card to be displayed.
+		bgcolor:	The background color of the card.
+		fgcolor:	The foreground color of the card.
+		font:		The intended font of the displayed text.
+		action:		An optional value for passing a non-specific function to the card, to be executed when the "Enter" key is pressed.
+		eventDict:	An optional value for passing a pygame event, to be raised when the card is played.  Unused.
+		normal:		An optional value for passing an image to be rendered as the card's typical-state texture.
+		dark:		An optional value for passing an image to be rendered as the card's deactivated-state texture.
+		flipped:	An optional value for passing an image to be rendered as the card's reverse-side texture.
+
+	Returns:
+		nothing
+
+	Raises:
+		Executes the function passed in via "action"
+		OR
+		A turn-page event which is created by using the data from the dictionary passed in via "eventDict", if "action" is not present
+	"""
+	
+	def __init__(self, rect=None, card=None, bgcolor=Globals.LIGHTGRAY, fgcolor=Globals.BLACK, font=None, action=None, event=None, normal=None, dark=None, flipped=None):
+		if rect is None:
+			self._rect = pygame.Rect(0, 0, 64, 89)
+		else:
+			self._rect = pygame.Rect(rect)
+		
+		# If there is no card info to use, fill out the card with a blank template.
+		if card is None:
+			self._card = card
+			#raise Exception('foo')
+		else:
+			self._card = card
+		
+		# Set up colors and backgrounds
+		self._bgcolor = bgcolor
+		self._fgcolor = fgcolor
+		self.color_active = Globals.LIGHTGRAY
+		self.color_inactive = Globals.DARKGRAY
+		self.color = self.color_inactive
+		
+		# Set up the font.
+		if font is None:
+			self._font = pygame.font.Font('freesansbold.ttf', 14)
+		else:
+			self._font = font
+		#self.messageSurf = self._font.render(self._text, True, self._fgcolor, self._bgcolor)
+
+		# Shapes the card uses.
+		self.small_card = pygame.Rect(self._rect.x, self._rect.y, self._rect.w, self._rect.h)
+		self.large_card = pygame.Rect(self._rect.x + 50, self._rect.y - 178, 128, 178)
+		self.goal_rect = pygame.Rect(0, 0, 0, 0)
+		self.old_rect = pygame.Rect(self._rect.x, self._rect.y, self._rect.w, self._rect.h)
+		#self.placeholder_space = pygame.Rect(self._rect.x, self._rect.y, self._rect.w, self._rect.h)
+		
+		# Tracks the state of the card.
+		self.transiting = False # Is the card currently animated?
+		self.flipped = False # Is the card currently face-down?
+		self.selected = False # Is the card removed from the hand and displayed in a larger size?
+		self.selecting = False # Is the card in the animation process of being selected or deselected?
+		self.cardHeld = False # Is the mouse being held down over the card?
+		self.mouseOverCard = False # Is the mouse currently hovering over the card?
+		self.lastMouseDownOverCard = False # Was the last mouse down event over the card? (Used to track clicks.)
+		self._visible = True # Is the card visible?
+		self.customSurfaces = False # Does the card start as a text button instead of having custom images for each surface?
+		
+		# Technical variables
+		self._action = action
+		self._event = event
+		self.animation_time = 0
+		self.animation_frames = self.animation_time * Globals.FPS
+		self.current_frame = self.animation_frames
+		
+		if normal is None:
+			# Create the surfaces for a card.
+			self.surfaceNormal = pygame.Surface(self._rect.size)
+			self.surfaceDark = pygame.Surface(self._rect.size)
+			self.surfaceFlipped = pygame.Surface(self._rect.size)
+			self._update() # draw the initial card images
+		else:
+			# Create the surfaces for a custom image card
+			self.setSurfaces(normal, dark, flipped)
+	
+	def setSurfaces(self, normalSurface, darkSurface=None, flippedSurface=None):
+		"""Switch the card's front or back to a custom image. You can specify either a pygame.Surface object or a string of a filename to load for each of the three input appearance states."""
+		if darkSurface is None:
+			darkSurface = normalSurface
+		if flippedSurface is None:
+			flippedSurface = normalSurface
+		
+		if type(normalSurface) == str:
+			self.origSurfaceNormal = pygame.image.load(normalSurface)
+		if type(darkSurface) == str:
+			self.origSurfaceDark = pygame.image.load(darkSurface)
+		if type(flippedSurface) == str:
+			self.origSurfaceFlipped = pygame.image.load(flippedSurface)
+		
+		if self.origSurfaceNormal.get_size() != self.origSurfaceDark.get_size() != self.origSurfaceFlipped.get_size():
+			raise Exception('foo')
+		
+		self.surfaceNormal = self.origSurfaceNormal
+		self.surfaceDark = self.origSurfaceDark
+		self.surfaceFlipped = self.origSurfaceFlipped
+		self.customSurfaces = True
+		# TODO: The below line may conflict with move() and dynamic resizing.
+		self._rect = pygame.Rect((self._rect.left, self._rect.top, self.surfaceNormal.get_width(), self.surfaceNormal.get_height()))
+	
+	def _update(self):
+		"""Redraw the card's Surface object. Call this method when the card has changed appearance."""
+		w = self._rect.width # syntactic sugar
+		h = self._rect.height # syntactic sugar
+
+		# Animate the card moving.
+		if (self.transiting):
+			# Adjust the card's features linearly with time, over the desired timeline.
+			# TODO: These functions will need to change for parabolic movement to be possible.
+			self._rect.x = self.old_rect.x + ((self.goal_rect.x - self.old_rect.x) * ((self.animation_frames - self.current_frame) / self.animation_frames))
+			self._rect.y = self.old_rect.y + ((self.goal_rect.y - self.old_rect.y) * ((self.animation_frames - self.current_frame) / self.animation_frames))
+			self._rect.width = self.old_rect.width + ((self.goal_rect.width - self.old_rect.width) * ((self.animation_frames - self.current_frame) / self.animation_frames))
+			self._rect.height = self.old_rect.height + ((self.goal_rect.height - self.old_rect.height) * ((self.animation_frames - self.current_frame) / self.animation_frames))
+			self.current_frame -= 1
+
+			if self.current_frame is 0:
+				# Cease animation.
+				self.transiting = False
+				# Achieve the desired location and size.
+				self._rect.x = self.goal_rect.x
+				self._rect.y = self.goal_rect.y
+				self._rect.w = self.goal_rect.w
+				self._rect.h = self.goal_rect.h
+				# Toggle selecting state, if relevant
+				if self.selecting:
+					self.selected = not self.selected
+					self.selecting = False
+		
+		# Check to see which surfaces to squash and stretch onto the (possibly) new card.
+		if self.customSurfaces:
+			# Squash and stretch the original custom images every time.
+			self.surfaceNormal = pygame.transform.smoothscale(self.origSurfaceNormal, self._rect.size)
+			self.surfaceDark = pygame.transform.smoothscale(self.origSurfaceDark, self._rect.size)
+			self.surfaceFlipped = pygame.transform.smoothscale(self.origSurfaceFlipped, self._rect.size)
+			return
+		else:
+			self.surfaceNormal = pygame.transform.smoothscale(self.surfaceNormal, self._rect.size)
+			self.surfaceDark = pygame.transform.smoothscale(self.surfaceDark, self._rect.size)
+			self.surfaceFlipped = pygame.transform.smoothscale(self.surfaceFlipped, self._rect.size)
+		
+		# Fill background color for all card states.
+		self.surfaceNormal.fill(self._bgcolor)
+		self.surfaceDark.fill(self._bgcolor)
+		self.surfaceFlipped.fill(self._bgcolor)
+	
+	def draw(self, surfaceObj):
+		"""Blit the card's current appearance to the surface object."""
+		if self.transiting:
+			self._update()
+
+		if self._visible:
+			if self.flipped:
+				surfaceObj.blit(self.surfaceFlipped, self._rect)
+			else:
+				surfaceObj.blit(self.surfaceNormal, self._rect)		
+	
+	def handleEvent(self, eventObj):
+		if eventObj.type not in (MOUSEMOTION, MOUSEBUTTONUP, MOUSEBUTTONDOWN) or not self._visible:
+			# The card only cares about mouse-related events (or no events, if it is invisible).
+			return []
+		
+		retVal = []
+		
+		hasExited = False
+		if not self.mouseOverCard and (self.small_card.collidepoint(eventObj.pos)):
+			# If mouse has entered the small card:
+			self.mouseOverCard = True
+			self.mouseEnter(eventObj)
+			retVal.append('enter')
+		elif self.mouseOverCard and not (self.small_card.collidepoint(eventObj.pos) or self.large_card.collidepoint(eventObj.pos)):
+			# If mouse had exited all card areas:
+			self.mouseOverCard = False
+			hasExited = True # Call mouseExit() later, since we want mouseMove() to be handled before mouseExit().
+		
+		if (self.small_card.collidepoint(eventObj.pos) or self.large_card.collidepoint(eventObj.pos)):
+			# If mouse event happened over any card area:
+			if eventObj.type == MOUSEMOTION:
+				self.mouseMove(eventObj)
+				retVal.append('move')
+			elif eventObj.type == MOUSEBUTTONDOWN:
+				self.cardHeld = True
+				self.lastMouseDownOverCard = True
+				self.mouseDown(eventObj)
+				retVal.append('down')
+		else:
+			if eventObj.type in (MOUSEBUTTONUP, MOUSEBUTTONDOWN):
+				# If an up/down happens off the card, then the next up won't cause mouseClick().
+				self.lastMouseDownOverCard = False
+		
+		# Mouse up is handled whether or not it was over the card
+		doMouseClick = False
+		if eventObj.type == MOUSEBUTTONUP:
+			if self.lastMouseDownOverCard:
+				doMouseClick = True
+			self.lastMouseDownOverCard = False
+			
+			if self.cardHeld:
+				self.cardHeld = False
+				self.mouseUp(eventObj)
+				retVal.append('up')
+			
+			if doMouseClick:
+				self.cardHeld = False
+				self.mouseClick(eventObj)
+				retVal.append('click')
+		
+		if hasExited:
+			self.mouseExit(eventObj)
+			retVal.append('exit')
+		
+		return retVal
+	
+	def mouseClick(self, event):
+		if event.button == 1: # Left click.
+			if self.selected:
+				self.move(1, self.small_card)
+				self.selecting = True
+				print("Small Card: " + str(self.small_card.x) + ", " + str(self.small_card.y) + ", " + str(self.small_card.w) + ", " + str(self.small_card.h))
+			else:
+				self.move(1, self.large_card)
+				self.selecting = True
+				print("Large Card: " + str(self.large_card.x) + ", " + str(self.large_card.y) + ", " + str(self.large_card.w) + ", " + str(self.large_card.h))
+			#if self._action != None:
+			#	self._action()
+			#elif self._event != None:
+			#	pygame.event.post(self._event)
+	
+	def move(self, seconds, rectangle):
+		# Begin the animation
+		self.transiting = True
+		# Reset the animation timing tracker variables with current data
+		self.animation_time = seconds
+		self.animation_frames = self.animation_time * Globals.FPS
+		self.current_frame = self.animation_frames
+		self.old_rect = pygame.Rect(self._rect.x, self._rect.y, self._rect.w, self._rect.h)
+
+		if rectangle is None:
+			raise Exception("Cannot move to nonexistant rectangle!")
+		else:
+			self.goal_rect.x = rectangle.x
+			self.goal_rect.y = rectangle.y
+			self.goal_rect.w = rectangle.w
+			self.goal_rect.h = rectangle.h
+	
+	def mouseEnter(self, event):
+		pass # This class is meant to be overridden.
+	
+	def mouseExit(self, event):
+		pass # This class is meant to be overridden.
+	
+	def mouseMove(self, event):
+		pass # This class is meant to be overridden.
+	
+	def mouseDown(self, event):
+		pass # This class is meant to be overridden.
+	
+	def mouseUp(self, event):
+		pass # This class is meant to be overridden.

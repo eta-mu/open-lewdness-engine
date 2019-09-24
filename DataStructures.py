@@ -53,6 +53,58 @@ class Page:
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - -
 
+class DuelPage(Page):
+	"""
+	The class for displaying the card game mechanics.
+
+	Args:
+		page:				An XML tree containing the information which is to be represented on the screen.  TODO: Consider replacing this arg with a search of the story variable.
+		story:				The full XML tree.  Passed in to this class so that Points can be found and filled with variables.
+		exposedVariables:	A global dictionary of all exposed variables which can be referenced across the whole game.
+		gameWidth:			An integer denoting the width of the game window.
+		gameHeight:			An integer denoting the height of the game window.
+		fontPathReg:			The directroy path for the regular in-game font.
+		fontPathIta:			The directroy path for the italic in-game font.
+		fontPathBol:			The directroy path for the bold in-game font.
+		fontSize:				An integer denoting the generic font size.
+
+	Returns:
+		nothing
+
+	Raises:
+		nothing
+	"""
+	
+	def __init__(self, page, story, gameWidth, gameHeight):
+		Page.__init__(self, page, story, gameWidth, gameHeight)
+		self.checkInput = False	 # Flag to avoid checking for text input if no input is requested.
+		
+		# This is a dictionary containing the exact placement of potential cards.
+		# I hate this implementation even more, and it must be fixed TODO.
+		self._HAND = {
+			'1': pygame.Rect(
+				self.game_width * (1 / 2) - self.game_width * (4 / 50),
+				self.game_height * (16 / 24),
+				64,
+				89
+				)
+		}
+
+		self.cards = [UIElements.OLECard(self._HAND['1'])]
+	
+	def draw(self, gameDisplay):
+		"""Invoke the draw command for each element present on the page."""
+		# Draw the buttons
+		for card in self.cards:
+			card.draw(gameDisplay)
+	
+	def handleEvent(self, eventObj):
+		if eventObj.type in (pygame.MOUSEMOTION, pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, Globals.SCROLLEVENT):
+			for card in self.cards:
+				card.handleEvent(eventObj)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - -
+
 class MenuPage(Page):
 	"""
 	The class for displaying an out-of-game menu.
@@ -77,7 +129,7 @@ class MenuPage(Page):
 	
 	def __init__(self, page, story, gameWidth, gameHeight):
 		Page.__init__(self, page, story, gameWidth, gameHeight)
-		self.checkInput = False									# Flag to avoid checking for text input if no input is requested.
+		self.checkInput = False	# Flag to avoid checking for text input if no input is requested.
 		
 		# This is a dictionary containing the exact placement of potential buttons.  I hate this implementation.
 		self._BUTTON_DIRECTORY = {
@@ -165,7 +217,7 @@ class StoryPage(Page):
 	
 	def __init__(self, page, story, gameWidth, gameHeight):
 		Page.__init__(self, page, story, gameWidth, gameHeight)
-		self.checkInput = False									# Flag to avoid checking for text input if no input is requested.
+		self.checkInput = False	# Flag to avoid checking for text input if no input is requested.
 		
 		# This is the precise rectangular space given to the scroll box.
 		self.scroll_box_rect = pygame.Rect(self.game_width * (7 / 32), 16, int(self.game_width * (5 / 8)), self.game_height - (self.game_height * (1 / 16)))

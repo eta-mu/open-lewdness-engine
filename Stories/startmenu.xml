@@ -5,7 +5,7 @@
 		<button>
 			<message>Start New Game</message>
 			<location>1</location>
-			<transition>basegameintro0.xml</transition>
+			<transition>testduel.xml</transition>
 		</button>
 		<button>
 			<message>Continue</message>

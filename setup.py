@@ -5,7 +5,7 @@ def readme():
 		return f.read()
 
 setup(name='open_lewdness_engine',
-	version='0.0.7',
+	version='0.0.8',
 	description='Easily-moddable open-licence text adventure',
 	long_description=open("README.txt").read(),
 	classifiers=[

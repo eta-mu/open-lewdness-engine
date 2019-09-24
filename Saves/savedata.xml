@@ -1,40 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <data>
-
-	<character name="Testholomew">
-		<stat name="PC Race">
-			Human
-		</stat>
-		<stat name="PC Nominative Gender">
-			Male
-		</stat>
-		<stat name="PC Height">
-			275
-		</stat>
-		<stat name="PC Weight">
-			65
-		</stat>
-		<stat name="PC Overclothes">
-			None
-		</stat>
-		<stat name="PC Underclothes">
-			Tidy Whities
-		</stat>
-
-		<stat name="Strength">
-		</stat>
-		<stat name="Endurance">
-		</stat>
-		<stat name="Quickness">
-		</stat>
-		<stat name="Insight">
-		</stat>
-		<stat name="Libido">
-		</stat>
-		<stat name="Sexiness">
-		</stat>
-		<stat name="Sensitivity">
-		</stat>
-		</character>
-
+  <character name="Testholomew">
+    <stat name="PC Race">Human</stat>
+    <stat name="PC Nominative Gender">Male</stat>
+    <stat name="PC Height">275</stat>
+    <stat name="PC Weight">65</stat>
+    <stat name="PC Overclothes">None</stat>
+    <stat name="PC Underclothes">Tidy Whities</stat>
+    <stat name="Strength">10</stat>
+    <stat name="Endurance">1</stat>
+    <stat name="Quickness">1</stat>
+    <stat name="Insight">1</stat>
+    <stat name="Libido">1</stat>
+    <stat name="Sexiness">1</stat>
+    <stat name="Sensitivity">1</stat>
+    <stat name="NEWSTAT">9999</stat>
+    <stat name="TWOSTAT">8888</stat>
+  </character>
 </data>

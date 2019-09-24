@@ -16,6 +16,10 @@ def init():
 	# XML Parser
 	global PARSER
 	PARSER = lxml.etree.XMLParser(remove_blank_text=True)
+
+	# Game Settings
+	global FPS
+	FPS = 60
 	
 	# Global Colors
 	global BLACK

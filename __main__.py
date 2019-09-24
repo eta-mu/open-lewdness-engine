@@ -15,8 +15,7 @@ class App:
 		self._running = True
 		self._game_display_surf = None
 		self.clock = pygame.time.Clock()
-		self.fps = 60
-		self.targetFrameTime = 1000/self.fps
+		self.targetFrameTime = 1000/Globals.FPS
 		self.size = self.display_width, self.display_height = 800, 600
 		
 		self._story = '' # Root node of the story xml tree
@@ -86,7 +85,8 @@ class App:
 	
 	def on_render(self):
 		"""Renders the game elements."""
-		self._page.draw(self._game_display_surf)
+		self._game_display_surf.fill(Globals.BLACK)  # Black out the whole display to prevent ghosting.
+		self._page.draw(self._game_display_surf)  # Redraw all elements on the screen.
 		pygame.display.update()
 	
 	
@@ -113,7 +113,7 @@ class App:
 	
 	
 	def turnPage(self, pageName, gameWidth, gameHeight):
-		"""Function for changing to a different Page within a Story."""
+		"""Function for changing to a different Page within a Story.  Also hard-defines which kinds of pages can be created."""
 		storyRoot = self._story.getroot()
 		for page in storyRoot.findall('page'):
 			if page.attrib['name'] == pageName:
@@ -122,6 +122,9 @@ class App:
 					self._game_display_surf.fill(Globals.BLACK)
 				elif page.attrib['type'] == 'menu':
 					self._page = MenuPage(page, storyRoot, gameWidth, gameHeight)
+					self._game_display_surf.fill(Globals.BLACK)
+				elif page.attrib['type'] == 'duel':
+					self._page = DuelPage(page, storyRoot, gameWidth, gameHeight)
 					self._game_display_surf.fill(Globals.BLACK)
 	
 	
