@@ -1481,7 +1481,7 @@ class OLEInputBox(object):
 class OLECard(object):
 	"""
 	The class for an action card.
-	TODO: Expanding this class to include standardized card formatting and actual game data.
+	TODO: Expanding this class to include standardized card formatting and text wrapping.
 
 	Args:
 		rect:		The pygame rectangle which defines the physical space the card takes up on the game screen.
@@ -1512,8 +1512,7 @@ class OLECard(object):
 		
 		# If there is no card info to use, fill out the card with a blank template.
 		if card is None:
-			self._card = card
-			#raise Exception('foo')
+			raise Exception('Cannot render a card without any data!')
 		else:
 			self._card = card
 		
@@ -1601,12 +1600,21 @@ class OLECard(object):
 		self.origSurfaceFlipped.fill(self._bgcolor)
 
 		# Draw card title text for all card states.
-		titleSurf = self._font.render(self._card, True, self._fgcolor, self._bgcolor)
+		titleSurf = self._font.render(self._card._name, True, self._fgcolor, self._bgcolor)
 		titleRect = titleSurf.get_rect()
-		titleRect.center = int(self.large_card.w / 2), int(self.large_card.h / 6)
+		titleRect.center = int(self.large_card.w / 2), int(self.large_card.h / 8)
 		self.origSurfaceNormal.blit(titleSurf, titleRect)
 		self.origSurfaceDark.blit(titleSurf, titleRect)
 		self.origSurfaceFlipped.blit(titleSurf, titleRect)
+
+		# Draw card flavor text for all card states.
+		# TODO: Make the flavor text wrap
+		flavorTextSurf = self._font.render(self._card._flavor_text, True, self._fgcolor, self._bgcolor)
+		flavorTextRect = flavorTextSurf.get_rect()
+		flavorTextRect.center = int(self.large_card.w / 2), int(self.large_card.h / 2)
+		self.origSurfaceNormal.blit(flavorTextSurf, flavorTextRect)
+		self.origSurfaceDark.blit(flavorTextSurf, flavorTextRect)
+		self.origSurfaceFlipped.blit(flavorTextSurf, flavorTextRect)
 
 		# Any drawing on the card's surfaces must occur before this line.
 		# Animate the card moving.

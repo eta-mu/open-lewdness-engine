@@ -1,11 +1,13 @@
 <data>
 
-  <card name="testcard">
-    <flavortext></flavortext>
+  <card name="Test Card">
+	<filename>testcard</filename>
+    <flavortext>This card does nothing, but looks pretty doing it.</flavortext>
 	<red>1</red>
 	<green>1</green>
 	<yellow>1</yellow>
 	<blue>1</blue>
+	<sideeffects></sideeffects>
   </card>
   
 </data>

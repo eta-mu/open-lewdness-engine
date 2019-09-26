@@ -91,7 +91,7 @@ class DuelPage(Page):
 				)
 		}
 
-		self.cards = [UIElements.OLECard(self._HAND['1'], "Test Card")]
+		self.cards = [UIElements.OLECard(self._HAND['1'], Globals.PLAYER_CHARACTER._deck['testcard'])]  #TEST CODE
 	
 	def draw(self, gameDisplay):
 		"""Invoke the draw command for each element present on the page."""
@@ -567,7 +567,7 @@ class Character:
 		self.name = None
 		self.body_parts = []
 		self.stats = {}
-		self.deck = {}
+		self._deck = {}
 
 		self.readSave(savePath)
 		#self.loadStats(globalStats)
@@ -583,7 +583,7 @@ class Character:
 		
 		savedDeck = root.find('deck')
 		for card in savedDeck.findall('card'):
-			self.deck[card.attrib['name']] = Card(os.path.join(Globals.CARDS_PATH, card.attrib['name'] + '.xml'))
+			self._deck[card.attrib['name']] = Card(os.path.join(Globals.CARDS_PATH, card.attrib['name'] + '.xml'))
 	
 	def loadStats(self, globalStats):
 		"""Create the list of stats by cross-referencing the save file and global stats"""
@@ -716,13 +716,14 @@ class Card:
 		if card_data == None:
 			raise Exception("No card data found for: " + cardPath)
 
+		# TODO: Load background and image files into the Card object from file.
 		self._name = card_data.attrib['name']
 		self._background = card_data.find('background')
-		self._flavor_text = card_data.find('flavortext')
+		self._flavor_text = card_data.find('flavortext').text
 		self._image = card_data.find('image')
-		self._red = card_data.find('red')
-		self._green = card_data.find('green')
-		self._yellow = card_data.find('yellow')
-		self._blue = card_data.find('blue')
-		self._side_effects = card_data.find('sideeffects')
+		self._red = card_data.find('red').text
+		self._green = card_data.find('green').text
+		self._yellow = card_data.find('yellow').text
+		self._blue = card_data.find('blue').text
+		self._side_effects = card_data.find('sideeffects').text
 		
