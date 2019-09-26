@@ -1,4 +1,5 @@
 <data>
+
   <character name="Testholomew">
     <stat name="PC Race">Human</stat>
     <stat name="PC Nominative Gender">Male</stat>
@@ -16,4 +17,9 @@
     <stat name="NEWSTAT">9999</stat>
     <stat name="TWOSTAT">8888</stat>
   </character>
+  
+  <deck>
+	<card name="testcard"></card>
+  </deck>
+  
 </data>

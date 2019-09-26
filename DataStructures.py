@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import os
 import lxml.etree as ET
 import Globals
 import UIElements
@@ -566,17 +567,23 @@ class Character:
 		self.name = None
 		self.body_parts = []
 		self.stats = {}
-		
+		self.deck = {}
+
 		self.readSave(savePath)
 		#self.loadStats(globalStats)
 		
 	def readSave(self, savePath):
 		"""Read character stats from file into the stats dictionary"""
 		root = ET.parse(savePath, Globals.PARSER).getroot()
+		
 		character = root.find('character')
 		self.name = character.attrib['name']
 		for stat in character.findall('stat'):
 			self.stats[stat.attrib['name']] = stat.text.replace('\n','').replace('\t','')
+		
+		savedDeck = root.find('deck')
+		for card in savedDeck.findall('card'):
+			self.deck[card.attrib['name']] = Card(os.path.join(Globals.CARDS_PATH, card.attrib['name'] + '.xml'))
 	
 	def loadStats(self, globalStats):
 		"""Create the list of stats by cross-referencing the save file and global stats"""
@@ -689,3 +696,33 @@ class BodyPart:
 			self.qualities = dict()
 			for p in partsTree.findall('qualities'):
 				self.qualities[p.attrib] = p.text
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - -
+
+class Card:
+	def __init__(self, cardPath = None):
+		self._name = None
+		self._background = None
+		self._flavor_text = None
+		self._image = None
+		self._red = None
+		self._green = None
+		self._yellow = None
+		self._blue = None
+		self._side_effects = None
+		
+		root = ET.parse(cardPath, Globals.PARSER).getroot()
+		card_data = root.find('card')
+		if card_data == None:
+			raise Exception("No card data found for: " + cardPath)
+
+		self._name = card_data.attrib['name']
+		self._background = card_data.find('background')
+		self._flavor_text = card_data.find('flavortext')
+		self._image = card_data.find('image')
+		self._red = card_data.find('red')
+		self._green = card_data.find('green')
+		self._yellow = card_data.find('yellow')
+		self._blue = card_data.find('blue')
+		self._side_effects = card_data.find('sideeffects')
+		

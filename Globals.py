@@ -61,31 +61,36 @@ def init():
 	global BROWN
 	BROWN = (210, 105, 30)
 
-	# Global Variables
+	# Global Paths
+	global CARDS_PATH
+	CARDS_PATH = 'Cards'
 	global FONT_PATH
 	FONT_PATH = 'Fonts'
-	global FONT_SIZE
-	FONT_SIZE = 18
 	global FONT_PATH_REGULAR
 	FONT_PATH_REGULAR = ''
 	global FONT_PATH_ITALIC
 	FONT_PATH_ITALIC = ''
 	global FONT_PATH_BOLD
 	FONT_PATH_BOLD = ''
-	global TEXT_COLOR
-	TEXT_COLOR = (0,0,0)
-	global BG_COLOR
-	BG_COLOR = (212, 208, 200)
+	global SAVES_PATH
+	SAVES_PATH = 'Saves'
 	global SETTINGS_PATH
 	SETTINGS_PATH = 'Settings.XML'
 	global STATS_PATH
 	STATS_PATH = 'Stats'
-	global SAVES_PATH
-	SAVES_PATH = 'Saves'
 	global STORY_PATH
 	STORY_PATH = 'Stories'
 	global DIRECTORY
 	DIRECTORY = os.path.dirname(__file__)
+
+	# Assorted Globals
+	global FONT_SIZE
+	FONT_SIZE = 18
+	global TEXT_COLOR
+	TEXT_COLOR = (0,0,0)
+	global BG_COLOR
+	BG_COLOR = (212, 208, 200)
+	
 	global STATS_DICT
 	STATS_DICT = {}
 	
