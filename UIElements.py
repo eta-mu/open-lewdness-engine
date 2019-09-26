@@ -1561,6 +1561,9 @@ class OLECard(object):
 			self.surfaceNormal = pygame.Surface(self._rect.size)
 			self.surfaceDark = pygame.Surface(self._rect.size)
 			self.surfaceFlipped = pygame.Surface(self._rect.size)
+			self.origSurfaceNormal = pygame.Surface(self.large_card.size)
+			self.origSurfaceDark = pygame.Surface(self.large_card.size)
+			self.origSurfaceFlipped = pygame.Surface(self.large_card.size)
 			self._update() # draw the initial card images
 		else:
 			# Create the surfaces for a custom image card
@@ -1592,9 +1595,20 @@ class OLECard(object):
 	
 	def _update(self):
 		"""Redraw the card's Surface object. Call this method when the card has changed appearance."""
-		w = self._rect.width # syntactic sugar
-		h = self._rect.height # syntactic sugar
+		# Fill background color for all card states.
+		self.origSurfaceNormal.fill(self._bgcolor)
+		self.origSurfaceDark.fill(self._bgcolor)
+		self.origSurfaceFlipped.fill(self._bgcolor)
 
+		# Draw card title text for all card states.
+		titleSurf = self._font.render(self._card, True, self._fgcolor, self._bgcolor)
+		titleRect = titleSurf.get_rect()
+		titleRect.center = int(self.large_card.w / 2), int(self.large_card.h / 6)
+		self.origSurfaceNormal.blit(titleSurf, titleRect)
+		self.origSurfaceDark.blit(titleSurf, titleRect)
+		self.origSurfaceFlipped.blit(titleSurf, titleRect)
+
+		# Any drawing on the card's surfaces must occur before this line.
 		# Animate the card moving.
 		if (self.transiting):
 			# Adjust the card's features linearly with time, over the desired timeline.
@@ -1605,7 +1619,7 @@ class OLECard(object):
 			self._rect.height = self.old_rect.height + ((self.goal_rect.height - self.old_rect.height) * ((self.animation_frames - self.current_frame) / self.animation_frames))
 			self.current_frame -= 1
 
-			if self.current_frame is 0:
+			if self.current_frame <= 0:
 				# Cease animation.
 				self.transiting = False
 				# Achieve the desired location and size.
@@ -1618,22 +1632,10 @@ class OLECard(object):
 					self.selected = not self.selected
 					self.selecting = False
 		
-		# Check to see which surfaces to squash and stretch onto the (possibly) new card.
-		if self.customSurfaces:
-			# Squash and stretch the original custom images every time.
-			self.surfaceNormal = pygame.transform.smoothscale(self.origSurfaceNormal, self._rect.size)
-			self.surfaceDark = pygame.transform.smoothscale(self.origSurfaceDark, self._rect.size)
-			self.surfaceFlipped = pygame.transform.smoothscale(self.origSurfaceFlipped, self._rect.size)
-			return
-		else:
-			self.surfaceNormal = pygame.transform.smoothscale(self.surfaceNormal, self._rect.size)
-			self.surfaceDark = pygame.transform.smoothscale(self.surfaceDark, self._rect.size)
-			self.surfaceFlipped = pygame.transform.smoothscale(self.surfaceFlipped, self._rect.size)
-		
-		# Fill background color for all card states.
-		self.surfaceNormal.fill(self._bgcolor)
-		self.surfaceDark.fill(self._bgcolor)
-		self.surfaceFlipped.fill(self._bgcolor)
+		# Squash and stretch the original custom images or the fabricated images.
+		self.surfaceNormal = pygame.transform.smoothscale(self.origSurfaceNormal, self._rect.size)
+		self.surfaceDark = pygame.transform.smoothscale(self.origSurfaceDark, self._rect.size)
+		self.surfaceFlipped = pygame.transform.smoothscale(self.origSurfaceFlipped, self._rect.size)
 	
 	def draw(self, surfaceObj):
 		"""Blit the card's current appearance to the surface object."""
@@ -1705,11 +1707,11 @@ class OLECard(object):
 	def mouseClick(self, event):
 		if event.button == 1: # Left click.
 			if self.selected:
-				self.move(1, self.small_card)
+				self.move(0.5, self.small_card)
 				self.selecting = True
 				print("Small Card: " + str(self.small_card.x) + ", " + str(self.small_card.y) + ", " + str(self.small_card.w) + ", " + str(self.small_card.h))
 			else:
-				self.move(1, self.large_card)
+				self.move(0.5, self.large_card)
 				self.selecting = True
 				print("Large Card: " + str(self.large_card.x) + ", " + str(self.large_card.y) + ", " + str(self.large_card.w) + ", " + str(self.large_card.h))
 			#if self._action != None:

@@ -90,7 +90,7 @@ class DuelPage(Page):
 				)
 		}
 
-		self.cards = [UIElements.OLECard(self._HAND['1'])]
+		self.cards = [UIElements.OLECard(self._HAND['1'], "Test Card")]
 	
 	def draw(self, gameDisplay):
 		"""Invoke the draw command for each element present on the page."""
