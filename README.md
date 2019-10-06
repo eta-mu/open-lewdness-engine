@@ -4,13 +4,18 @@
 
 
 ## Structure
-The game engine itself is written in the **Python** programming language, displayed using **PyGame**, and all of its content is stored in **XML files**.  When Open Lewdness Engine is activated, it first checks Settings.xml to load in basic game settings.  It then checks the **Stats** folder to find XML files which contain the lists of stats which characters will be using in the game.  Lastly, it loads your player character's save file from the **Saves** folder, before finally loading the first XML "story" file so that the game can begin.
+The game engine itself is written in the **Python** programming language, displayed using **PyGame**, and all of its content is stored in **XML files**.  When Open Lewdness Engine is activated, it checks for certain files:
+1. *Settings.xml* to load in basic game settings.
+2. The *Stats* folder to find XML files which contain the lists of stats which characters will be using in-game.
+3. Your player character's save file from the *Saves* folder.  This included your character's deck.
+4. The relevant cards in your player character's deck are then loaded from the *Cards* folder.
+5. The first XML **Story** file.
 
-This ability to load in any number of "stories" is the core utility of Open Lewdness Engine.  Items, narration, the location of image and sound files, even core gameplay elements like additional statistics or menus can be added directly to the game through a single XML file at run-time.  Many of these elements will need to be housed in separate directories elsewhere, but the story file binds them all together.
+This ability to load in any number of **Stories** is the core utility of Open Lewdness Engine.  Items, narration, the location of image and sound files, even core gameplay elements like additional statistics or menus can be added directly to the game through a single XML file at run-time.  Many of these elements will need to be housed in separate directories elsewhere, but the story file binds them all together.
 
 To prove this point, the base game which comes packaged with OLE is written entirely as XML-file "stories".
 
-**Stories** have access to parts of the game such as the player character's statistics and the status of quests, plus a number of other things.  These are called **exposed variables**, and they can be used to create quests, immerse the player, and provide a dynamic experience.
+Stories have access to parts of the game such as the player character's statistics and the status of quests, plus a number of other things.  These are called **exposed variables**, and they can be used to create quests, immerse the player, and provide a dynamic experience.
 
 All exposed variables exist in a single dictionary file, which is added to by an internal private process and an external public process.  The private process adds basic and universal variables, while the public process takes data from the XML files and adds them to the dictionary, so that user-generated variables can be patched in at run-time (like stories are).
 
@@ -20,9 +25,9 @@ The player character, NPC characters, and opponents all have profiles which are 
 
 
 ## Conventions
-All "story" XML files are to be named without capital letters.  Only core files (such as Settings.xml) and save files may be capitalized.  This is for the sake of visual clarity.
+All story XML files are to be named without capital letters.  Only core files (such as Settings.xml) and save files may be capitalized.  This is for the sake of visual clarity.
 
-"Stories" are to be placed in the Stories folder.  OpenLewdnessEngine will not look for stories anywhere else.
+Stories are to be placed in the *Stories* folder.  OpenLewdnessEngine will not look for stories anywhere else.
 
 **Points** are the name given to bracketed words (words surrounded by "[" and "]") in XML stories.  These words are placeholders which OLE will swap out for something else.  A point must contain no spaces.  What a point is replaced by is largely up to the writer.
 

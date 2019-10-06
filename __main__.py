@@ -1,3 +1,5 @@
+
+
 import pygame
 import sys
 import os
@@ -11,6 +13,18 @@ from DataStructures import *
 
 
 class App:
+	"""
+	The core class of OLE.
+	
+	Args:
+		nothing
+
+	Returns:
+		nothing
+
+	Raises:
+		nothing
+	"""
 	def __init__(self):
 		self._running = True
 		self._game_display_surf = None

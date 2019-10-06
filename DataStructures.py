@@ -5,7 +5,7 @@ import lxml.etree as ET
 import Globals
 import UIElements
 
-TEXTIN = pygame.USEREVENT + 3
+#TEXTIN = pygame.USEREVENT + 3
 
 class Page:
 	"""
