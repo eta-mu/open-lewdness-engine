@@ -5,7 +5,7 @@
 		<button>
 			<message>Start New Game</message>
 			<location>1</location>
-			<transition>testduel.xml</transition>
+			<transition>basegameintro0.xml</transition>
 		</button>
 		<button>
 			<message>Continue</message>
@@ -13,13 +13,18 @@
 			<transition></transition>
 		</button>
 		<button>
-			<message>Save</message>
+			<message>Battle</message>
 			<location>3</location>
+			<transition>testduel.xml</transition>
+		</button>
+		<button>
+			<message>Save</message>
+			<location>4</location>
 			<transition>savegame</transition>
 		</button>
 		<button>
 			<message>Exit Game</message>
-			<location>4</location>
+			<location>5</location>
 			<transition>quitgame</transition>
 		</button>
 		<image></image>

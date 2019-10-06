@@ -136,25 +136,31 @@ class MenuPage(Page):
 		self._BUTTON_DIRECTORY = {
 			'1': pygame.Rect(
 				self.game_width * (1 / 2) - self.game_width * (4 / 50),
-				self.game_height * (10 / 24),
+				self.game_height * (8 / 24),
 				self.game_width * (8 / 50),
 				self.game_height * (4 / 50)
 				),
 			'2': pygame.Rect(
 				self.game_width * (1 / 2) - self.game_width * (4 / 50),
-				self.game_height * (13 / 24),
+				self.game_height * (11 / 24),
 				self.game_width * (8 / 50),
 				self.game_height * (4 / 50)
 				),
 			'3': pygame.Rect(
 				self.game_width * (1 / 2) - self.game_width * (4 / 50),
-				self.game_height * (16 / 24),
+				self.game_height * (14 / 24),
 				self.game_width * (8 / 50),
 				self.game_height * (4 / 50)
 				),
 			'4': pygame.Rect(
 				self.game_width * (1 / 2) - self.game_width * (4 / 50),
-				self.game_height * (19 / 24),
+				self.game_height * (17 / 24),
+				self.game_width * (8 / 50),
+				self.game_height * (4 / 50)
+				),
+			'5': pygame.Rect(
+				self.game_width * (1 / 2) - self.game_width * (4 / 50),
+				self.game_height * (20 / 24),
 				self.game_width * (8 / 50),
 				self.game_height * (4 / 50)
 				)
