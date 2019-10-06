@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
 
-	<window name="Small">
+	<window name="SVGA">
 		<active>False</active>
 		<description>Small window size.</description>
 		<width>800</width>
 		<height>600</height>
 	</window>
-	<window name="Standard">
+	<window name="XGA">
 		<active>False</active>
 		<description>Standard window size.</description>
-		<width>1000</width>
-		<height>700</height>
+		<width>1024</width>
+		<height>768</height>
 	</window>
-	<window name="Large">
-		<active>True</active>
-		<description>Widescreen window size.</description>
-		<width>1200</width>
-		<height>800</height>
-	</window>
-	<window name="High Resolution">
+	<window name="HD 720">
 		<active>False</active>
-		<description>High resolution window size.</description>
-		<width>2000</width>
-		<height>1400</height>
+		<description>Widescreen window size.</description>
+		<width>1280</width>
+		<height>720</height>
 	</window>
-	<window name="HighRez Large">
+	<window name="HD 1080">
+		<active>True</active>
+		<description>High resolution window size.</description>
+		<width>1920</width>
+		<height>1080</height>
+	</window>
+	<window name="WQHD">
 		<active>False</active>
 		<description>High resolution widescreen window size.</description>
-		<width>2400</width>
-		<height>1600</height>
+		<width>2560</width>
+		<height>1440</height>
 	</window>
 	
 	<font variant="regular">CrimsonText-Regular.ttf</font>

@@ -1,5 +1,3 @@
-
-
 import pygame
 import sys
 import os
@@ -15,6 +13,11 @@ from DataStructures import *
 class App:
 	"""
 	The core class of OLE.
+
+	App loads every other class (loaded classes will subsequently call more classes, no class
+	loads outside of this tree).  App will call draw on whichever page is loaded (calling on
+	any object causes it to draw itself, and call draw on any object it contains), and wipes
+	the render surface clean.
 	
 	Args:
 		nothing
@@ -30,7 +33,7 @@ class App:
 		self._game_display_surf = None
 		self.clock = pygame.time.Clock()
 		self.targetFrameTime = 1000/Globals.FPS
-		self.size = self.display_width, self.display_height = 800, 600
+		self.size = self.display_width, self.display_height = 800, 600  # Default size, overwritten by readSettings()
 		
 		self._story = '' # Root node of the story xml tree
 		self._page = '' # Page currently being displayed
@@ -63,7 +66,7 @@ class App:
 		if event.type == pygame.QUIT:
 			self._running = False
 		elif event.type == Globals.NEWPAGE:
-			# TODO: modify the event to include metadata to indicate type of page
+			# TODO: modify the event to include metadata to indicate type of page.  May be unnecessary, see turnPage().
 			# This for loop modifies the exposed variables to the values indicated by the event dictionary's key-value pairs.
 			for eventKey, eventValue in event.dict.items():
 				# The "name" key is always reserved for the name of the event, so it can be skipped.
