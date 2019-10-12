@@ -1758,3 +1758,79 @@ class OLECard(object):
 	
 	def mouseUp(self, event):
 		pass # This class is meant to be overridden.
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - -
+
+class OLEImage(object):
+	"""
+	The class for displaying an image.
+
+	Args:
+		rect:		The pygame rectangle which defines the physical space the image takes up on the game screen.
+		image:		The image file which is to be displayed.
+		bgcolor:	The background color of the image.
+		fgcolor:	The foreground color of the image.
+
+	Returns:
+		nothing
+
+	Raises:
+		nothing
+	"""
+	def __init__(self, x=None, y=None, rect=None, image=None, border=False, bgcolor=Globals.LIGHTGRAY, fgcolor=Globals.BLACK):
+		if image is None:
+			raise Exception ("An OLEImage cannot be generated without an image path!")
+		else:
+			self.imageSurface = pygame.image.load(image)
+
+		# Create an initial rect based on given arguments.
+		if rect is None:
+			if x or y is None:
+				self._rect = pygame.Rect((0, 0, self.imageSurface.get_width(), self.imageSurface.get_height()))
+			else:
+				self._rect = pygame.Rect((x, y, self.imageSurface.get_width(), self.imageSurface.get_height()))
+		else:
+			self._rect = pygame.Rect(rect)
+
+		self._image = image
+		self._bgcolor = bgcolor
+		self._fgcolor = fgcolor
+		
+		# Tracks the state of the image.
+		self._visible = True # Is the button visible?
+		self._bordered = border # Does the image have a border?
+		
+		# Pre-render the image.
+		self.surfaceNormal = None
+		if (self._rect.width == self.imageSurface.get_width()) and (self._rect.height == self.imageSurface.get_height()):
+			self.surfaceNormal = self.imageSurface
+		else:
+			self.surfaceNormal = pygame.transform.smoothscale(self.imageSurface, self._rect.size)
+	
+	def _update(self):
+		"""Redraw the image's Surface object. Call this method when the image has changed appearance."""
+		if (self._rect.width == self.surfaceNormal.width) and (self._rect.height == self.surfaceNormal.height):
+			self.surfaceNormal = self.imageSurface
+		else:
+			self.surfaceNormal = pygame.transform.smoothscale(self.imageSurface, self._rect.size)
+		
+		w = self._rect.width # syntactic sugar
+		h = self._rect.height # syntactic sugar
+
+		# Draw border for the image.
+		"""
+		pygame.draw.rect(self.surfaceNormal, Globals.BLACK, pygame.Rect((0, 0, w, h)), 1) # black border around everything
+		pygame.draw.line(self.surfaceNormal, Globals.WHITE, (1, 1), (w - 2, 1)) # horizontal top
+		pygame.draw.line(self.surfaceNormal, Globals.WHITE, (1, 1), (1, h - 2)) # vertical left
+		pygame.draw.line(self.surfaceNormal, Globals.DARKGRAY, (1, h - 1), (w - 1, h - 1)) # horizontal bottom
+		pygame.draw.line(self.surfaceNormal, Globals.DARKGRAY, (w - 1, 1), (w - 1, h - 1)) # vertical right
+		pygame.draw.line(self.surfaceNormal, Globals.GRAY, (2, h - 2), (w - 2, h - 2)) # horizontal bottom
+		pygame.draw.line(self.surfaceNormal, Globals.GRAY, (w - 2, 2), (w - 2, h - 2)) # vertical right
+		"""
+		
+		# Animate a GIF.
+	
+	def draw(self, surfaceObj):
+		"""Blit the current image's appearance to the surface object."""
+		if self._visible:
+			surfaceObj.blit(self.surfaceNormal, self._rect)

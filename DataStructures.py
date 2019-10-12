@@ -232,6 +232,9 @@ class StoryPage(Page):
 		# This is the space given to the text input box.
 		self.input_box_rect = pygame.Rect(self.game_width * (8 / 32), self.game_height * (15 / 16), int(self.game_width * (18 / 32)), 48)
 		
+		# This is the space given to a sample image, for testing image functionality.
+		self.image_rect = pygame.Rect(self.game_width * (1 / 32), self.game_height * (1 / 32), int(self.game_width * (1 / 8)), int(self.game_width * (1 / 8)))
+
 		# This is a dictionary containing the exact placement of potential buttons.  I hate this implementation.
 		self._BUTTON_DIRECTORY = {
 			'1': pygame.Rect(
@@ -318,6 +321,12 @@ class StoryPage(Page):
 					))
 				bars += 2
 
+		# Look for an image source, and import it if found.
+		image = page.find('image')
+		if image is not None:
+			if image.text is not None:
+				self.images.append(UIElements.OLEImage(rect = self.image_rect, image = os.path.join(Globals.IMAGE_PATH, image.text)))
+
 	def draw(self, gameDisplay):
 		"""Invoke the draw command for each element present on the page."""
 		# Draw the scroll box
@@ -331,6 +340,9 @@ class StoryPage(Page):
 		# Draw the progress bars
 		for bar in self.progress_bars:
 			bar.draw(gameDisplay, "n")
+		# Draw the image
+		for image in self.images:
+			image.draw(gameDisplay)
 	
 	def handleEvent(self, eventObj):
 		if eventObj.type in (pygame.MOUSEMOTION, pygame.MOUSEBUTTONUP, pygame.MOUSEBUTTONDOWN, Globals.SCROLLEVENT):

@@ -72,6 +72,8 @@ def init():
 	FONT_PATH_ITALIC = ''
 	global FONT_PATH_BOLD
 	FONT_PATH_BOLD = ''
+	global IMAGE_PATH
+	IMAGE_PATH = 'Images'
 	global SAVES_PATH
 	SAVES_PATH = 'Saves'
 	global SETTINGS_PATH
@@ -85,7 +87,7 @@ def init():
 
 	# Assorted Globals
 	global FONT_SIZE
-	FONT_SIZE = 18
+	FONT_SIZE = 22
 	global TEXT_COLOR
 	TEXT_COLOR = (0,0,0)
 	global BG_COLOR
