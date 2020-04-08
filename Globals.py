@@ -20,7 +20,7 @@ def init():
 	# Game Settings
 	global FPS
 	FPS = 60
-	
+
 	# Global Colors
 	global BLACK
 	BLACK = (0, 0, 0)
@@ -92,11 +92,11 @@ def init():
 	TEXT_COLOR = (0,0,0)
 	global BG_COLOR
 	BG_COLOR = (212, 208, 200)
-	
+
 	global STATS_DICT
 	STATS_DICT = {}
-	
-	# All variables exposed to the Story.  Cannot contain the key "name"
+
+	# All variables exposed to the Story.  Cannot contain the exact key "name"
 	global EXPOSED_VARIABLES
 	EXPOSED_VARIABLES = {}
 	global PLAYER_CHARACTER
